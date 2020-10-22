@@ -21,8 +21,15 @@ if (process.env.NODE_ENV === "production") {
 // API Routes
 app.use(routes)
 
-// Connect to db
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/books", { useNewUrlParser: true });
+// Set up Mongo DB
+// db mongo
+var MONGODB = process.env.MONGODB_URI;
+
+mongoose.connect(MONGODB || "mongodb://localhost/books", {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true
+});
 
 // Start server
 app.listen(PORT, () => {
